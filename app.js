@@ -1,10 +1,25 @@
 const fs = require("fs");
 const express = require("express");
 
-const app = express()
+const path = require("path");
+
+const app = express();
+const publicPath = path.resolve(__dirname, "./public") ;
+app.use(express.static(publicPath));
 
 app.get("/", (req, res) => {
-    res.send("Hola!");
+    const fileToSend = path.join(__dirname, "views/home.html");
+    res.sendFile(fileToSend);
+});
+
+app.get("/login", (req, res) => {
+    const fileToSend = path.join(__dirname, "views/login.html");
+    res.sendFile(fileToSend);
+});
+
+app.get("/registro", (req, res) => {
+    const fileToSend = path.join(__dirname, "views/register.html");
+    res.sendFile(fileToSend);
 });
 
 app.listen(8050, () => {
