@@ -1,30 +1,19 @@
-const fs = require("fs");
 const express = require("express");
-
+const app = express();
 const path = require("path");
 
-const app = express();
 const publicPath = path.resolve(__dirname, "./public") ;
 app.use(express.static(publicPath));
 
-app.get("/", (req, res) => {
-    const fileToSend = path.join(__dirname, "views/home.html");
-    res.sendFile(fileToSend);
-});
+const mainRouter = require("./routers/mainRouter");
 
-app.get("/login", (req, res) => {
-    const fileToSend = path.join(__dirname, "views/login.html");
-    res.sendFile(fileToSend);
-});
+//Declarando que desde "/" se va a manejar desde mainRouter //
+app.use("/", mainRouter);
 
-app.get("/registro", (req, res) => {
-    const fileToSend = path.join(__dirname, "views/register.html");
-    res.sendFile(fileToSend);
-});
-
+//Escuchamos al puerto  8050//
 app.listen(8050, () => {
     console.log("Servidor corriendo en http://localhost:8050");
 });
-
+ 
 
 
